@@ -9,6 +9,7 @@ class Node{
     constructor(limit=10, front=null, back=null) {
      this.front= front
      this.back = back
+     this.timeWating=tumeWaiting
      this.limit=limit
      this.size= 0   
     }
