@@ -6,28 +6,53 @@ class TreeNode {
       this.children = [];
     }
     
-    addChild = (node) => {
-        if(this.children.length < 2) {this.children.push(node);
-        console.log(`added a child to family ${this.name}`)
-        } else console.log ("child is an orphan")
-    }
-
-      removeChild = (node) => {
-          if(this.children.length > 2 )
-        this.children = this.children.filter((child) => child !== node);
-      };
-
+    
 
       traverse = () => {
         let nodes = [this]; 
         while (nodes.length > 0) {
           let currentNode = nodes.pop();
-          console.log(currentNode.data);
+          console.log(currentNode.name);
           nodes = [...nodes, ...currentNode.children];
         }
     }
+
+    parentIdentity = (child) => {
+      let nodes = [this]; 
+      while (nodes.length > 0) {
+        let currentNode = nodes.pop();
+        if (child.name.split(" ")[1] === currentNode.name.split(" ")[0]){
+          return currentNode
+        }
+        console.log(currentNode.name);
+        nodes = [...nodes, ...currentNode.children];
+      }
+      return "no such parent here"
+  }
+  
+  addChild = (child) => {
+        if(this.children.length < 2) {this.children.push(child);
+        console.log(`added a child to family ${child.name}`)
+        } else console.log ("child is an orphan")
+    }
 }
 
-const tree = new TreeNode("fmaily")
 
-tree.addChild("ismael")
+
+const root = new TreeNode("family")
+let childNum = prompt ("enter child full name (done if finished):")
+
+  while (childNum !== "done") {
+     let child = new TreeNode(childNum)
+    par = root.parentIdentity(child)
+    if (par !== "no such parent here" ) {
+     
+          par.addChild(child)
+
+    } else console.log(par)
+
+    childNum = prompt ("enter child full name (done if finished):")
+  }
+
+
+
